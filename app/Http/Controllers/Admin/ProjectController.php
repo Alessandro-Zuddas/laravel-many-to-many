@@ -89,8 +89,9 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $types = Type::all();
+        $technologies = Technology::all();
 
-        return view("admin.projects.edit", compact("project", "types"));
+        return view("admin.projects.edit", compact("project", "types", "technologies"));
     }
 
     /**
@@ -109,6 +110,12 @@ class ProjectController extends Controller
         if( isset($data["project_image"]) ){
             $image_path = Storage::disk("public")->put("uploads", $data["project_image"]);
             $project->project_image = $image_path;
+        }
+
+        if( isset($data["technologies"]) ){
+            $project->technologies()->sync($data["technologies"]);
+        }else{
+            $project->technologies()->sync([]);
         }
 
         $project->update($data);

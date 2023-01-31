@@ -12,6 +12,17 @@
         @endif
     </h2>
 
+    <div class="mt-2">
+        @if ($project->technology)
+            <h4>Tecnologie:</h4> 
+            @foreach ($project->technology as $technology)
+            <span class="badge bg-secondary">{{ $technology->name }}</span>   
+            @endforeach
+        @else
+            <h4>Nessuna tecnologia utilizzata.</h4>
+        @endif
+    </div>
+
     <ul>
         <li>{{ $project->description }}</li>
         <li>{{ $project->date }}</li>
