@@ -62,6 +62,10 @@ class ProjectController extends Controller
 
         $new_project->save();
 
+        if( isset($data["technologies"]) ){
+            $new_project->technologies()->sync($data["technologies"]);
+        }
+
         return redirect()->route("admin.projects.index")->with("message", "Il progetto è stato creato con successo!");
     }
 
